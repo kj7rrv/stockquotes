@@ -63,30 +63,32 @@ class Stock:
                             row[0].span.string,
                             '%b %d, %Y'
                         ),
-                        "open"    : float(row[1].span.string.replace(',', '')),
-                        "high"    : float(row[2].span.string.replace(',', '')),
-                        "low"     : float(row[3].span.string.replace(',', '')),
-                        "close"   : float(row[4].span.string.replace(',', '')),
-                        "adjClose": float(row[5].span.string.replace(',', '')),
-                        "volume"  :   int(row[6].span.string.replace(',', ''))
+                        "open": float(row[1].span.string.replace(',', '')),
+                        "high": float(row[2].span.string.replace(',', '')),
+                        "low": float(row[3].span.string.replace(',', '')),
+                        "close": float(row[4].span.string.replace(',', '')),
+                        "adjusted_close": float(
+                                row[5].span.string.replace(',', '')),
+                        "volume": int(row[6].span.string.replace(',', ''))
                     }
                 except:
                     continue
+
                 self.historical.append(parsed)
-            topData = soup.find(id='quote-header-info')
+            top_data = soup.find(id='quote-header-info')
             try:
-                self.currentPrice = float(
-                        topData.findAll('span')[11].string.replace(',', ''))
-                rawChange = topData.findAll('span')[12].string
+                self.current_price = float(
+                        top_data.findAll('span')[11].string.replace(',', ''))
+                raw_change = top_data.findAll('span')[12].string
             except IndexError:
-                self.currentPrice = float(
-                        topData.findAll('span')[3].string.replace(',', ''))
-                rawChange = topData.findAll('span')[4].string
+                self.current_price = float(
+                        top_data.findAll('span')[3].string.replace(',', ''))
+                raw_change = top_data.findAll('span')[4].string
                 
-            self.increaseDollars = float(
-                    rawChange.split(' ')[0].replace(',', ''))
-            self.increasePercent = float(
-                    rawChange.split(' ')[1]\
+            self.increase_dollars = float(
+                    raw_change.split(' ')[0].replace(',', ''))
+            self.increase_percent = float(
+                    raw_change.split(' ')[1]\
                             .replace(',', '')\
                             .replace('(', '')\
                             .replace(')', '')\

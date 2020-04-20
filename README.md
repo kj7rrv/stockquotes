@@ -3,10 +3,11 @@ historical data from Yahoo! Finance. It's perfect for developers who can't
 afford the (often high) prices charged by many stock data APIs.
 
 # Requirements
-* Python 3.6+
+* Python 3.5+
 * Beautiful Soup 4
 
 # Installation
+
     pip3 install stockquotes
 
 # Usage
@@ -20,15 +21,15 @@ parameter is the ticker symbol to look up.
     kroger = stockquotes.Stock('KR')
 
 ## Basic data
-To get the current price of a share, get the `Stock`'s `currentPrice`.
+To get the current price of a share, get the `Stock`'s `current_price`.
 
-    krogerPrice = kroger.currentPrice
+    krogerPrice = kroger.current_price
 
-To get the day gain in dollars, get the `Stock`'s `increaseDollars`.
+To get the day gain in dollars, get the `Stock`'s `increase_dollars`.
 
-    krogerGainDollars = kroger.increaseDollars
+    krogerGainDollars = kroger.increase_dollars
 
-The same value as a percent is available in the `increasePercent` property. To
+The same value as a percent is available in the `increase_percent` property. To
 indicate losses, these values are negative.
 
 ## Historical data
@@ -37,10 +38,10 @@ The historical data for a stock can be accessed through the `Stock`'s
 representing the most recent quote. The `dict`'s `date` property is a
 `datetime` object representing the date the quote is from. `open` is the
 opening price for that day. `high` and `low` are the high and low prices,
-respectively, for that day. `close` and `adjClose` are the closing price. The
-difference is that `adjClose` is adjusted for splits and dividends, whereas
-`close` is adjusted only for splits. `volume` is the stock's volume for that
-day.
+respectively, for that day. `close` and `adjusted_close` are the closing
+price. The difference is that `adjClose` is adjusted for splits and
+dividends, whereas `close` is adjusted only for splits. `volume` is the
+stock's volume for that day.
 
 Typically, this should give at least a month of data. Obviously, it gives less
 for recent IPOs. Also, a known but unexplained bug causes it to only give two
@@ -78,4 +79,3 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 
 For more information, please refer to <https://unlicense.org/>
-
