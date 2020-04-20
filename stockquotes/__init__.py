@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #stockquotes - Python module to pull stock quotes from Yahoo! Finance
-#Copyright 2019 ScoopGracie. All rights reversed.
+#Copyright 2020 ScoopGracie. All rights reversed.
 #This is free and unencumbered software released into the public domain.
 
 #Anyone is free to copy, modify, publish, use, compile, sell, or
@@ -25,52 +25,71 @@
 #OTHER DEALINGS IN THE SOFTWARE.
 
 from bs4 import BeautifulSoup as bs
-import requests, datetime
+import requests
+import datetime
+
 class StockDoesNotExistError(Exception):
-	pass
+    pass
+
 class NetworkError(Exception):
-	pass
+    pass
+
 class Stock:
-	def __init__(self, ticker):
-		try:
-			r=requests.get('https://finance.yahoo.com/quote/' + ticker + '/history', headers={'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3941.4 Safari/537.36'})
-		except:
-			raise NetworkError()
-		if r.status_code is 302:
-			raise StockDoesNotExistError(ticker)
-		try:
-			soup = bs(r.text, features="lxml")
-			self.symbol = soup.h1.string.split('(')[1].split(')')[0]
-			self.name = soup.h1.string.split('(')[0].strip()
-			rows = soup.table.tbody.find_all('tr')
-			self.historical=[]
-			for i in rows:
-				row=i.find_all('td')
-				try:
-					parsed = {
-						"date" : datetime.datetime.strptime(
-							row[0].span.string,
-							'%b %d, %Y'
-						),
-						"open"    : float(row[1].span.string.replace(',', '')),
-						"high"    : float(row[2].span.string.replace(',', '')),
-						"low"     : float(row[3].span.string.replace(',', '')),
-						"close"   : float(row[4].span.string.replace(',', '')),
-						"adjClose": float(row[5].span.string.replace(',', '')),
-						"volume"  :   int(row[6].span.string.replace(',', ''))
-					}
-				except:
-					continue
-				self.historical.append(parsed)
-			topData = soup.find(id='quote-header-info')
-			try:
-				self.currentPrice = float(topData.findAll('span')[11].string.replace(',', ''))
-				rawChange = topData.findAll('span')[12].string
-			except IndexError:
-				self.currentPrice = float(topData.findAll('span')[3].string.replace(',', ''))
-				rawChange = topData.findAll('span')[4].string
-				
-			self.increaseDollars = float(rawChange.split(' ')[0].replace(',', ''))
-			self.increasePercent = float(rawChange.split(' ')[1].replace(',', '').replace('(', '').replace(')', '').replace('%', ''))
-		except AttributeError as error:
-			raise StockDoesNotExistError(ticker) from error
+    def __init__(self, ticker):
+        try:
+            r=requests.get(
+                    'https://finance.yahoo.com/quote/{}/history'\
+                            .format(ticker),
+                    headers={
+                        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64)' +
+                            ' AppleWebKit/537.36 (KHTML, like Gecko)' +
+                            ' Chrome/79.0.3941.4 Safari/537.36'
+                    })
+        except:
+            raise NetworkError()
+        if r.status_code is 302:
+            raise StockDoesNotExistError(ticker)
+        try:
+            soup = bs(r.text, features="lxml")
+            self.symbol = soup.h1.string.split('(')[1].split(')')[0]
+            self.name = soup.h1.string.split('(')[0].strip()
+            rows = soup.table.tbody.find_all('tr')
+            self.historical=[]
+            for i in rows:
+                row=i.find_all('td')
+                try:
+                    parsed = {
+                        "date" : datetime.datetime.strptime(
+                            row[0].span.string,
+                            '%b %d, %Y'
+                        ),
+                        "open"    : float(row[1].span.string.replace(',', '')),
+                        "high"    : float(row[2].span.string.replace(',', '')),
+                        "low"     : float(row[3].span.string.replace(',', '')),
+                        "close"   : float(row[4].span.string.replace(',', '')),
+                        "adjClose": float(row[5].span.string.replace(',', '')),
+                        "volume"  :   int(row[6].span.string.replace(',', ''))
+                    }
+                except:
+                    continue
+                self.historical.append(parsed)
+            topData = soup.find(id='quote-header-info')
+            try:
+                self.currentPrice = float(
+                        topData.findAll('span')[11].string.replace(',', ''))
+                rawChange = topData.findAll('span')[12].string
+            except IndexError:
+                self.currentPrice = float(
+                        topData.findAll('span')[3].string.replace(',', ''))
+                rawChange = topData.findAll('span')[4].string
+                
+            self.increaseDollars = float(
+                    rawChange.split(' ')[0].replace(',', ''))
+            self.increasePercent = float(
+                    rawChange.split(' ')[1]\
+                            .replace(',', '')\
+                            .replace('(', '')\
+                            .replace(')', '')\
+                            .replace('%', ''))
+        except AttributeError as error:
+            raise StockDoesNotExistError(ticker) from error
