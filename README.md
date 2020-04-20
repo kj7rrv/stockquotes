@@ -1,15 +1,21 @@
-`stockquotes` is a simple Python module for collecting stock quotes and historical data from Yahoo! Finance. It's perfect for developers who can't afford the (often steep) prices charged by many stock data APIs.
+`stockquotes` is a simple Python module for collecting stock quotes and
+historical data from Yahoo! Finance. It's perfect for developers who can't
+afford the (often high) prices charged by many stock data APIs.
+
 # Requirements
 * Python 3.6+
 * Beautiful Soup 4
+
 # Installation
     pip3 install stockquotes
+
 # Usage
 First, import the `stockquotes` module.
 
     import stockquotes
 
-To get a stock quote, instantiate a `stockquotes.Stock` object. The only parameter is the ticker symbol to look up.
+To get a stock quote, instantiate a `stockquotes.Stock` object. The only
+parameter is the ticker symbol to look up.
 
     kroger = stockquotes.Stock('KR')
 
@@ -22,13 +28,30 @@ To get the day gain in dollars, get the `Stock`'s `increaseDollars`.
 
     krogerGainDollars = kroger.increaseDollars
 
-The same value as a percent is available in the `increasePercent` property. To indicate losses, these values are negative.
+The same value as a percent is available in the `increasePercent` property. To
+indicate losses, these values are negative.
 
 ## Historical data
-The historical data for a stock can be accessed through the `Stock`'s `historical` property. This is an array of `dict`s, with the first item representing the most recent quote. The `dict`'s `date` property is a `datetime` object representing the date the quote is from. `open` is the opening price for that day. `high` and `low` are the high and low prices, respectively, for that day. `close` and `adjClose` are the closing price. The difference is that `adjClose` is adjusted for splits and dividends, whereas `close` is adjusted only for splits. `volume` is the stock's volume for that day.
+The historical data for a stock can be accessed through the `Stock`'s
+`historical` property. This is an array of `dict`s, with the first item
+representing the most recent quote. The `dict`'s `date` property is a
+`datetime` object representing the date the quote is from. `open` is the
+opening price for that day. `high` and `low` are the high and low prices,
+respectively, for that day. `close` and `adjClose` are the closing price. The
+difference is that `adjClose` is adjusted for splits and dividends, whereas
+`close` is adjusted only for splits. `volume` is the stock's volume for that
+day.
+
+Typically, this should give at least a month of data. Obviously, it gives less
+for recent IPOs. Also, a known but unexplained bug causes it to only give two
+days of data for some stocks.
+
 # Exceptions
 `stockquotes.StockDoesNotExistError` is raised when the stock does not exist.
-`stockquotes.NetworkError` is raised when a connection to Yahoo! Finance cannot be established.
+
+`stockquotes.NetworkError` is raised when a connection to Yahoo! Finance
+cannot be established.
+
 # License
 Copyright (c) 2019 ScoopGracie. All rights reversed.
 This is free and unencumbered software released into the public domain.
