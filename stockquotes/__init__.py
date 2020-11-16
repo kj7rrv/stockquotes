@@ -87,6 +87,12 @@ class Stock:
                     top_data.findAll("span")[3].string.replace(",", "")
                 )
                 raw_change = top_data.findAll("span")[4].string
+            except ValueError:
+                self.current_price = float(
+                    top_data.findAll("span")[9].string.replace(",", "")
+                )
+                raw_change = top_data.findAll("span")[10].string
+                
 
             self.increase_dollars = float(
                 raw_change.split(" ")[0].replace(",", "")
