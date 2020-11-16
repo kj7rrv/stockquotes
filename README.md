@@ -23,11 +23,11 @@ parameter is the ticker symbol to look up.
 ## Basic data
 To get the current price of a share, get the `Stock`'s `current_price`.
 
-    krogerPrice = kroger.current_price
+    kroger_price = kroger.current_price
 
 To get the day gain in dollars, get the `Stock`'s `increase_dollars`.
 
-    krogerGainDollars = kroger.increase_dollars
+    kroger_gain_dollars = kroger.increase_dollars
 
 The same value as a percent is available in the `increase_percent` property. To
 indicate losses, these values are negative.
