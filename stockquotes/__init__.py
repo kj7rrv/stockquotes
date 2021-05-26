@@ -48,7 +48,7 @@ class Stock:
             )
         except:
             raise NetworkError()
-        if r.status_code is 302:
+        if r.status_code == 302:
             raise StockDoesNotExistError(ticker)
         try:
             soup = bs(r.text, features="lxml")
@@ -70,7 +70,9 @@ class Stock:
                         "adjusted_close": float(
                             row[5].span.string.replace(",", "")
                         ),
-                        "volume": int(row[6].span.string.replace(",", "")),
+                        "volume": int(row[6].span.string.replace(",", ""))
+                        if row[6].string != "-"
+                        else None,
                     }
                 except:
                     continue
