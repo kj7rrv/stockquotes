@@ -41,7 +41,7 @@ class Stock:
     def __init__(self, ticker):
         try:
             r = requests.get(
-                "https://finance.yahoo.com/quote/{}/history".format(ticker),
+                f"https://finance.yahoo.com/quote/{ticker}/history",
                 headers={
                     "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:92.0) Gecko/20100101 Firefox/92.0"
                 },

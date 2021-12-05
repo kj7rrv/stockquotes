@@ -1,9 +1,9 @@
-`stockquotes` is a simple Python module for collecting stock/ETF and mutual fund (see #2) quotes and
+`stockquotes` is a simple Python module for collecting stock/ETF and mutual fund quotes and
 historical data from Yahoo! Finance. It's perfect for developers who can't
 afford the (often high) prices charged by many stock data APIs.
 
 # Requirements
-* Python 3.5+
+* Python 3.6+
 * Beautiful Soup 4
 
 # Installation
