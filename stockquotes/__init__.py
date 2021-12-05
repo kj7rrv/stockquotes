@@ -78,33 +78,18 @@ class Stock:
                     continue
 
                 self.historical.append(parsed)
-            top_data = soup.find(id="quote-header-info")
-            try:
-                self.current_price = float(
-                    top_data.findAll("span")[11].string.replace(",", "")
-                )
-                raw_change = top_data.findAll("span")[12].string
-            except IndexError:
-                self.current_price = float(
-                    top_data.findAll("span")[3].string.replace(",", "")
-                )
-                raw_change = top_data.findAll("span")[4].string
-            except ValueError:
-                self.current_price = float(
-                    top_data.findAll("span")[9].string.replace(",", "")
-                )
-                raw_change = top_data.findAll("span")[10].string
-                
 
-            self.increase_dollars = float(
-                raw_change.split(" ")[0].replace(",", "")
-            )
-            self.increase_percent = float(
-                raw_change.split(" ")[1]
-                .replace(",", "")
-                .replace("(", "")
-                .replace(")", "")
-                .replace("%", "")
-            )
+            price_selector = f'fin-streamer[data-field="regularMarketPrice"][data-symbol="{self.symbol}"]'
+            price_element = soup.select_one(price_selector)
+            self.current_price = float(price_element.text)
+
+            change_selector = f'fin-streamer[data-field="regularMarketChange"][data-symbol="{self.symbol}"]'
+            change_element = soup.select_one(change_selector)
+            self.increase_dollars = float(change_element.text)
+
+            change_percent_selector = f'fin-streamer[data-field="regularMarketChangePercent"][data-symbol="{self.symbol}"]'
+            change_percent_element = soup.select_one(change_percent_selector)
+            change_percent_text = ''.join([char for char in change_percent_element.text if char in '-.0123456789'])
+            self.increase_percent = float(change_percent_text)
         except AttributeError as error:
             raise StockDoesNotExistError(ticker) from error
