@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 setuptools.setup(
     name="stockquotes",
-    version="2.0.2",
+    version="2.0.3",
     description="A simple module for retreiving stock data",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -13,5 +13,5 @@ setuptools.setup(
         "Programming Language :: Python :: 3",
         "Operating System :: OS Independent",
     ],
-    python_requires=">=3.5",
+    python_requires=">=3.6",
 )

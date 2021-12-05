@@ -89,7 +89,13 @@ class Stock:
 
             change_percent_selector = f'fin-streamer[data-field="regularMarketChangePercent"][data-symbol="{self.symbol}"]'
             change_percent_element = soup.select_one(change_percent_selector)
-            change_percent_text = ''.join([char for char in change_percent_element.text if char in '-.0123456789'])
+            change_percent_text = "".join(
+                [
+                    char
+                    for char in change_percent_element.text
+                    if char in "-.0123456789"
+                ]
+            )
             self.increase_percent = float(change_percent_text)
         except AttributeError as error:
             raise StockDoesNotExistError(ticker) from error
