@@ -1,6 +1,5 @@
-`stockquotes` is a simple Python module for collecting stock/ETF and mutual fund quotes and
-historical data from Yahoo! Finance. It's perfect for developers who can't
-afford the (often high) prices charged by many stock data APIs.
+`stockquotes` is a Python module for collecting stock, ETF, and mutual fund
+quotes and historical data from Yahoo! Finance.
 
 # Requirements
 * Python 3.6+
@@ -8,7 +7,9 @@ afford the (often high) prices charged by many stock data APIs.
 
 # Installation
 
-    pip3 install stockquotes
+    pip3 install git+https://github.com/kj7rrv/stockquotes
+
+Do not install from PyPI; the PyPI package is no longer updated.
 
 # Usage
 First, import the `stockquotes` module.
@@ -48,7 +49,8 @@ for recent IPOs. Also, a known but unexplained bug causes it to only give two
 days of data for some stocks.
 
 # Exceptions
-`stockquotes.StockDoesNotExistError` is raised when the stock does not exist.
+`stockquotes.StockDoesNotExistError` is raised when the stock does not (appear
+to) exist.
 
 `stockquotes.NetworkError` is raised when a connection to Yahoo! Finance
 cannot be established.
