@@ -43,7 +43,7 @@ class Stock:
             r = requests.get(
                 "https://finance.yahoo.com/quote/{}/history".format(ticker),
                 headers={
-                    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3941.4 Safari/537.36"
+                    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:92.0) Gecko/20100101 Firefox/92.0"
                 },
             )
         except:
