@@ -1,3 +1,6 @@
+# Branches
+All PRs should be made against the `devel` branch.
+
 # `black`
 Be sure to run
 

@@ -1,13 +1,20 @@
 `stockquotes` is a Python module for collecting stock, ETF, and mutual fund
 quotes and historical data from Yahoo! Finance.
 
+# Branches
+
+* `devel`: current development version
+* `stable`: latest stable release
+
+All PRs should be made against devel.
+
 # Requirements
 * Python 3.6+
 * Beautiful Soup 4
 
 # Installation
 
-    pip3 install git+https://github.com/kj7rrv/stockquotes
+    pip3 install git+https://github.com/kj7rrv/stockquotes@stable
 
 Do not install from PyPI; the PyPI package is no longer updated.
 
