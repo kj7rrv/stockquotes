@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 setuptools.setup(
     name="stockquotes",
-    version="2.0.3",
+    version="2.0.4",
     description="A simple module for retreiving stock data",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -14,4 +14,5 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     python_requires=">=3.6",
+    install_requires="beautifulsoup4",
 )
