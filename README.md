@@ -1,3 +1,6 @@
+# MOVED
+https://git.kj7rrv.com/kj7rrv/stockquotes
+
 `stockquotes` is a Python module for collecting stock, ETF, and mutual fund
 quotes and historical data from Yahoo! Finance.
 
